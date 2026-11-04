@@ -387,3 +387,19 @@ Lưu ý:
 - Nếu GitHub yêu cầu đăng nhập, dùng Git Credential Manager hoặc Personal Access Token. Không lưu mật khẩu GitHub dạng plaintext trong Git config.
 - Nếu push bị từ chối vì lịch sử khác nhau, chạy `git pull --rebase origin master` rồi push lại; không dùng `--force` trừ khi hiểu rõ hậu quả.
 
+---
+
+## 14. GitHub Pages
+
+Website công khai: `https://namnguyen2107N.github.io/WDSF-Scoring/`
+
+Repo đã có workflow `.github/workflows/deploy.yml`:
+
+- chạy khi push lên nhánh `master` hoặc chạy tay bằng `workflow_dispatch`;
+- cài dependency bằng `npm ci`;
+- chạy `npm test`;
+- build bằng `npm run build`;
+- deploy thư mục `dist` lên GitHub Pages.
+
+Pages của repo được đặt ở chế độ **GitHub Actions** (không phải “Deploy from a branch”). Vì vậy không cần commit thư mục `dist`. Sau mỗi lần push, vào tab **Actions** của repo để theo dõi lượt deploy.
+
