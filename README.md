@@ -353,3 +353,37 @@ npm run test:watch # test watch mode
 - Nhập trực tiếp tệp `.xlsx` (hiện hỗ trợ dán từ Excel và CSV).
 - Khóa dữ liệu theo giải/phiên và lưu nhiều giải song song.
 - Tùy chọn in bảng Skating khổ A4 landscape.
+
+---
+
+## 13. Đẩy code lên GitHub
+
+Repository: `https://github.com/namnguyen2107N/WDSF-Scoring`
+
+Nhánh `master` đã được thiết lập theo dõi `origin/master`. Có hai cách đẩy code:
+
+```bash
+# Cách thường dùng
+git add -A
+git commit -m "feat: mo ta thay doi"
+git push
+```
+
+Hoặc dùng script có sẵn (tự add, commit nếu có thay đổi, rồi push; tự đặt upstream nếu cần):
+
+```bash
+npm run push:github
+```
+
+Có thể truyền commit message trực tiếp:
+
+```bash
+npm run push:github -- "fix: sua loi cham diem"
+```
+
+Lưu ý:
+
+- Không commit `node_modules/`, `dist/` hoặc tệp `.env`; các mục này đã nằm trong `.gitignore`.
+- Nếu GitHub yêu cầu đăng nhập, dùng Git Credential Manager hoặc Personal Access Token. Không lưu mật khẩu GitHub dạng plaintext trong Git config.
+- Nếu push bị từ chối vì lịch sử khác nhau, chạy `git pull --rebase origin master` rồi push lại; không dùng `--force` trừ khi hiểu rõ hậu quả.
+
