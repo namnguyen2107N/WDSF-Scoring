@@ -106,7 +106,7 @@ export default function JudgingPage() {
   const activeDance = event && event.dances.includes(dance as Dance) ? (dance as Dance) : event?.dances[0];
 
   const roundValidation = useMemo(() => {
-    if (!event || activeRound === ('semifinal' as RoundType) && !event.semifinal) return null;
+    if (!event || (activeRound === ('semifinal' as RoundType) && !event.semifinal)) return null;
     if (activeRound === 'final' && !event.final) return null;
     return validateRound(event, activeRound, judges);
   }, [event, activeRound, judges]);
@@ -184,7 +184,8 @@ export default function JudgingPage() {
     activeJudge && !isShow
       ? event.dances.filter((item) => {
           const slots = event[activeRound]?.marks?.[item]?.[activeJudge.id] ?? [];
-          const expected = activeRound === 'semifinal' ? 6 : event.finalists?.length ?? 0;
+          const expected =
+            activeRound === 'semifinal' ? 6 : (event.finalists?.length ?? event.athleteIds.length);
           return expected > 0 && slots.slice(0, expected).filter(Boolean).length === expected;
         }).length
       : 0;

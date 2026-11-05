@@ -82,7 +82,9 @@ npm run dev
 
 Mở `http://localhost:5173`. Vite được cấu hình lắng nghe `0.0.0.0`, nên có thể mở từ tablet/điện thoại trong cùng mạng LAN bằng địa chỉ IP của máy chạy (ví dụ `http://192.168.1.20:5173`).
 
-Build bản production:
+Muốn chạy trực tiếp không cần máy chủ web, mở `dist/index.html` hoặc `docs/index.html`. Bản build là một file HTML duy nhất, đã nhúng toàn bộ mã ứng dụng, thư viện và CSS, hoạt động hoàn toàn offline trên mọi trình duyệt mà không cần cài đặt. File `index.html` ở thư mục gốc có tích hợp sẵn bộ chuyển hướng thông minh tự động mở bản build khi mở offline.
+
+Build bản production hoặc cập nhật bản HTML độc lập:
 
 ```bash
 npm run build

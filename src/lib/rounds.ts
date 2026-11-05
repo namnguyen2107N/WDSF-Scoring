@@ -59,7 +59,7 @@ export function ensureRoundShape(
     : { marks: {}, startedAt: new Date().toISOString() };
 
   for (const dance of event.dances) {
-    if (!result.marks[dance]) result.marks[dance] = {};
+    result.marks[dance] = { ...(result.marks[dance] ?? {}) };
     for (const judgeId of judgeIds) {
       const current = result.marks[dance][judgeId];
       if (!current) {

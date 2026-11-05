@@ -106,4 +106,22 @@ describe('computeSemifinal', () => {
     expect(result.qualifiers).toHaveLength(6);
     expect(result.rows[6].qualified).toBe(false);
   });
+
+  it('không báo hòa ranh giới khi VĐV hạng 5 và hạng 6 bằng nhau nhưng hơn hẳn hạng 7', () => {
+    const contestants = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+    const marks = buildMarks(['S'], {
+      j1: { S: ['A', 'B', 'C', 'D', 'E', 'F'] },
+      j2: { S: ['A', 'B', 'C', 'D', 'F', 'E'] },
+    });
+    const result = computeSemifinal({
+      contestantIds: contestants,
+      judgeIds: ['j1', 'j2'],
+      dances: ['S'],
+      marks,
+    });
+    // E và F đều có 2 lượt chọn, cùng hạng 5-6; G có 0 lượt chọn
+    expect(result.boundaryTie).toBe(false);
+    expect(result.boundaryAthleteIds).toHaveLength(0);
+    expect(result.qualifiers).toHaveLength(6);
+  });
 });

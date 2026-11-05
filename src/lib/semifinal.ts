@@ -95,8 +95,15 @@ export function computeSemifinal(params: {
   });
 
   const atCutoff = list[cutoff - 1];
+  const nextAfterCutoff = list[cutoff];
   const boundaryAthleteIds: string[] = [];
-  if (atCutoff) {
+  const hasBoundaryTie =
+    Boolean(atCutoff) &&
+    Boolean(nextAfterCutoff) &&
+    nextAfterCutoff.selections === atCutoff.selections &&
+    nextAfterCutoff.rankSum === atCutoff.rankSum;
+
+  if (hasBoundaryTie && atCutoff) {
     for (const row of list) {
       if (
         row.selections === atCutoff.selections &&
@@ -106,7 +113,7 @@ export function computeSemifinal(params: {
       }
     }
   }
-  const boundaryTie = boundaryAthleteIds.length > 1;
+  const boundaryTie = hasBoundaryTie;
   list.forEach((row) => {
     row.qualified = row.position <= cutoff;
     row.tiedAtCutoff = boundaryTie && boundaryAthleteIds.includes(row.athleteId);
@@ -157,7 +164,8 @@ export function expectedSlotsForRound(
   if (round === 'semifinal') {
     return { participants: event.athleteIds, slots: 6 };
   }
-  const participants = event.finalists ?? [];
+  const participants =
+    event.finalists ?? (event.status === 'final' || event.status === 'done' ? event.athleteIds : []);
   return { participants, slots: participants.length };
 }
 

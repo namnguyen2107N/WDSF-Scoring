@@ -9,9 +9,62 @@
       content="Hệ thống chấm điểm giải khiêu vũ thể thao theo tiêu chuẩn WDSF. Hoạt động offline, dữ liệu lưu trên trình duyệt."
     />
     <title>WDSF Scoring · Chấm điểm khiêu vũ thể thao</title>
+    <script>
+      (function() {
+        // 1. Khi mở trực tiếp file index.html qua file:// (bấm đúp trên Windows)
+        if (window.location.protocol === 'file:') {
+          window.location.replace('./dist/index.html' + window.location.hash);
+          return;
+        }
+        // 2. Khi chạy trên GitHub Pages mà hosting trỏ vào thư mục gốc chưa build
+        if (window.location.hostname.endsWith('github.io')) {
+          var path = window.location.pathname;
+          if (!path.includes('/docs/') && !path.includes('/dist/')) {
+            var repoPath = path.replace(/\/index\.html$/, '').replace(/\/$/, '');
+            window.location.replace(repoPath + '/docs/' + window.location.hash);
+          }
+        }
+      })();
+    </script>
+    <style>
+      .launcher-container {
+        max-width: 620px;
+        margin: 12vh auto;
+        padding: 32px 24px;
+        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        color: #0f172a;
+        text-align: center;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.1);
+        border: 1px solid #e2e8f0;
+      }
+      .launcher-btn {
+        display: inline-block;
+        margin-top: 16px;
+        padding: 10px 22px;
+        background: #1d4ed8;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .launcher-btn:hover {
+        background: #1e40af;
+      }
+    </style>
   </head>
-  <body>
-    <div id="root"></div>
+  <body style="margin: 0; background-color: #f1f5f9;">
+    <div id="root">
+      <div class="launcher-container">
+        <h1 style="margin: 0 0 12px; font-size: 22px; color: #1e3a8a;">WDSF Dance Scoring</h1>
+        <p style="margin: 0 0 16px; color: #475569; font-size: 14px; line-height: 1.6;">
+          Đang tải ứng dụng chấm điểm... Nếu bạn mở trực tiếp tệp này trên máy tính mà không dùng máy chủ web, vui lòng mở tệp <code>dist/index.html</code> (bản chạy offline độc lập).
+        </p>
+        <a class="launcher-btn" href="./dist/index.html">Mở bản dist/index.html</a>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

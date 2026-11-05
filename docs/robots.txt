@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# Ứng dụng chấm điểm chạy offline, không có nội dung cần thu thập.

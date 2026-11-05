@@ -80,6 +80,11 @@ export function parseDelimited(text: string, delimiter: string): string[][] {
       continue;
     }
     if (char === '\r') {
+      if (text[i + 1] === '\n') {
+        i += 1;
+        continue;
+      }
+      pushRow();
       i += 1;
       continue;
     }
@@ -100,14 +105,14 @@ function normalizeHeader(header: string): string {
 }
 
 const ALIASES: Record<keyof ParsedAthlete | 'name', string[]> = {
-  bib: ['sbd', 'so bao danh', 'so bao danh', 'bib', 'stt', 'so', 'ma so', 'sbd '],
-  kind: ['loai', 'kind', 'type', 'nhom', 'noi dung'],
+  bib: ['sbd', 'so bao danh', 'bib', 'stt', 'so', 'ma so'],
+  kind: ['loai', 'the loai', 'kind', 'type', 'noi dung', 'hang muc'],
   name: ['ten', 'ho ten', 'ten vdv', 'ten van dong vien', 'name', 'ten solo', 'ten thi sinh'],
   male: ['nam', 'ten nam', 'male', 'ban nam', 'partner nam', 'nam vdv'],
   female: ['nu', 'ten nu', 'female', 'ban nu', 'partner nu', 'nu vdv'],
   teamName: ['doi', 'ten doi', 'team', 'team name', 'ten doi nhom', 'ten doi tuyen'],
   unit: ['don vi', 'unit', 'clb', 'cau lac bo', 'donvi', 'don vi cong tac'],
-  ageGroup: ['nhom tuoi', 'hang tuoi', 'tuoi', 'age', 'age group', 'nhom'],
+  ageGroup: ['nhom tuoi', 'hang tuoi', 'lua tuoi', 'tuoi', 'age', 'age group', 'nhom'],
   note: ['ghi chu', 'note', 'ghi chu them'],
 };
 
